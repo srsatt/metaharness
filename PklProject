@@ -4,5 +4,5 @@ package {
   name = "metaharness"
   baseUri = "package://github.com/srsatt/metaharness"
   version = "0.1.0"
-  packageZipUrl = "https://github.com/srsatt/metaharness/releases/download/0.1.0/metaharness@0.1.0.zip"
+  packageZipUrl = "https://github.com/srsatt/metaharness/releases/download/v0.1.0/metaharness@0.1.0.zip"
 }
