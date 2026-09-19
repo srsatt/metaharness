@@ -11,7 +11,7 @@ output {
     ["reviewer"] = profile.roles["reviewer"].preset == "max" && profile.roles["reviewer"].readOnly
     ["codexPresets"] = profile.models["cheap"].codexModel == "gpt-5.6-terra" && profile.models["cheap"].codexEffort == "medium" && profile.models["medium"].codexModel == "gpt-5.6-sol" && profile.models["medium"].codexEffort == "high" && profile.models["max"].codexModel == "gpt-6-astra" && profile.models["max"].codexEffort == "high"
     ["routing"] = profile.policy.routing["failed_authoritative_check"] == "implementer" && profile.policy.routing["architecture"] == "architect" && profile.policy.routing["migration"] == "architect" && profile.policy.routing["rfc"] == "architect" && profile.policy.routing["difficult_decomposition"] == "architect"
-    ["benjaminPlus"] = profile.policy.efficiencyInstructions.contains("BENJAMIN-PLUS MODE ACTIVE")
+    ["benjaminPlus"] = profile.policy.efficiencyInstructions.contains("BENJAMIN-PLUS MODE ACTIVE") && profile.policy.efficiencyInstructions.contains("**1. Recon in one pass.**") && profile.policy.efficiencyInstructions.contains("**5. Polling is a step.**")
     ["skillsExplicit"] = profile.skillSources.isEmpty
   }
   renderer = new JsonRenderer {}
