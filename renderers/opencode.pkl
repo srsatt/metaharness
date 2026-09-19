@@ -1,4 +1,4 @@
-import "../defaults.pkl" as defaults
+import "../profiles/opencode.pkl" as defaults
 
 profile = defaults.value
 
