@@ -64,7 +64,7 @@ profile = new schema.Profile {
   roles = defaults.value.roles
   policy = defaults.value.policy
   environment = new schema.Environment {
-    name = "personal"
+    name = "local"
     instructions = "Use only this profile's configured integrations."
   }
   skillSources = new {
@@ -80,7 +80,8 @@ required native model binding is absent; they never substitute one.
 
 ## Benjamin-Plus policy
 
-Defaults include concise Benjamin-Plus efficiency instructions. They direct
+Defaults include concise [Benjamin-Plus](https://github.com/JetBrains/benjamin-plus-skill)
+efficiency instructions. They direct
 agents to batch reconnaissance, limit inspection output, avoid repeated polls,
 and run stated checks. This keeps long agent sessions from spending tokens on
 unnecessary context and tool calls.

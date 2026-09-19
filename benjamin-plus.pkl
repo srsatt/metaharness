@@ -1,4 +1,5 @@
 /// Optional shared policy for agents where prompt efficiency matters.
+/// Attribution: https://github.com/JetBrains/benjamin-plus-skill
 /// Consumers can set Policy.efficiencyInstructions = "" to opt out.
 instructions = """
 BENJAMIN-PLUS MODE ACTIVE
