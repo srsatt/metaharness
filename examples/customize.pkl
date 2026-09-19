@@ -1,0 +1,30 @@
+amends "../renderers/codex.pkl"
+
+import "../defaults.pkl" as defaults
+import "../schema.pkl" as schema
+
+profile = new schema.Profile {
+  name = "local-codex"
+  models = new Mapping {
+    ["cheap"] = defaults.value.models["cheap"]
+    ["medium"] = new schema.ModelPreset {
+      provider = "openai"
+      model = "my-model"
+      effort = "high"
+      codexModel = "my-model"
+      codexEffort = "high"
+      nativeModel = "my-model"
+    }
+    ["max"] = defaults.value.models["max"]
+  }
+  roles = defaults.value.roles
+  policy = defaults.value.policy
+  environment = new schema.Environment {
+    name = "local"
+    instructions = "Use only this profile's configured integrations."
+  }
+  skillSources = new {
+    new schema.SkillSource { localUri = "skills"; installRoot = ".agents/skills" }
+    new schema.SkillSource { lockUri = "skills-lock.json"; installRoot = ".agents/skills" }
+  }
+}

@@ -7,7 +7,7 @@ that semantic profile for Codex, OpenCode, Claude Code, or Gemini CLI.
 
 This boundary makes model changes safe. Change one preset and every role using
 that preset follows it. Keep machine paths, credentials, MCP servers, hooks,
-and editor or Workmux setup in your consumer repository.
+and editor setup in your consumer repository.
 
 ## Start
 
@@ -23,8 +23,9 @@ mise run render:opencode
 
 The render commands print structured JSON contracts. A consumer imports a
 renderer, assigns its own `Profile`, then writes the rendered value in the
-native file format it needs. See [examples/codex.pkl](examples/codex.pkl) and
-[examples/opencode.pkl](examples/opencode.pkl).
+native file format it needs. See [examples/codex.pkl](examples/codex.pkl),
+[examples/opencode.pkl](examples/opencode.pkl), and
+[examples/customize.pkl](examples/customize.pkl).
 
 ## Customize precisely
 
@@ -80,14 +81,14 @@ required native model binding is absent; they never substitute one.
 
 ## Benjamin-Plus policy
 
-Defaults include concise [Benjamin-Plus](https://github.com/JetBrains/benjamin-plus-skill)
+Defaults include full upstream [Benjamin-Plus](https://github.com/JetBrains/benjamin-plus-skill)
 efficiency instructions. They direct
 agents to batch reconnaissance, limit inspection output, avoid repeated polls,
 and run stated checks. This keeps long agent sessions from spending tokens on
 unnecessary context and tool calls.
 
 It is public policy, not a discoverable skill. To change or remove it, override
-`Policy.efficiencyInstructions` in consumer profile. Put personal workflow
+`Policy.efficiencyInstructions` in consumer profile. Put consumer-specific
 rules in consumer environment or policy, never in this package.
 
 ## Skills
@@ -133,5 +134,5 @@ restricted profile.
 | `mise run skills:restore -- …` | install selected local and locked skills |
 
 This repository has no updater, runtime service, machine paths, credentials,
-company integrations, or Workmux configuration. Pkl, Mise, and Node scripts
+company integrations. Pkl, Mise, and Node scripts
 support Windows, macOS, and Linux. License: [MIT](LICENSE).

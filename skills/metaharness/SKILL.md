@@ -7,8 +7,8 @@ Use this skill for metaharness profile changes.
 
 Keep semantic configuration in `Profile`, `Policy`, `Role`, `ModelPreset`,
 `Environment`, and `SkillSource`. Put harness-specific syntax only in a
-renderer. Never add machine paths, credentials, company integrations, hooks,
-or Workmux configuration to public metaharness files.
+renderer. Never add machine paths, credentials, company integrations, or hooks
+to public metaharness files.
 
 Start with `mise run check`. Render targets with `mise run render:codex` or
 `mise run render:opencode`. When changing models, update preset and keep roles

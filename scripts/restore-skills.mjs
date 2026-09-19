@@ -6,6 +6,12 @@ import {spawnSync} from "node:child_process";
 
 const skillName = /^[a-z0-9][a-z0-9-]*$/;
 
+function canonical(value) {
+  if (Array.isArray(value)) return value.map(canonical);
+  if (value && typeof value === "object") return Object.fromEntries(Object.keys(value).sort().map((key) => [key, canonical(value[key])]));
+  return value;
+}
+
 function usage(message) {
   if (message) console.error(`restore-skills: ${message}`);
   console.error("usage: restore-skills.mjs --install-root DIR [--local DIR]... [--lock FILE]... [--replace] [--check]");
@@ -62,7 +68,7 @@ function collect(options) {
   const locked = {};
   for (const path of options.locks) {
     for (const [name, specification] of Object.entries(readLock(path))) {
-      if (locked[name] && JSON.stringify(locked[name]) !== JSON.stringify(specification)) throw new Error(`conflicting lock entry for ${name}`);
+      if (locked[name] && JSON.stringify(canonical(locked[name])) !== JSON.stringify(canonical(specification))) throw new Error(`conflicting lock entry for ${name}`);
       locked[name] = specification;
     }
   }

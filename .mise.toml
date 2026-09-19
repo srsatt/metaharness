@@ -22,6 +22,10 @@ run = "pkl eval renderers/claude.pkl"
 description = "Render default Gemini CLI JSON contract"
 run = "pkl eval renderers/gemini.pkl"
 
+[tasks."render:customize"]
+description = "Render tested customization example"
+run = "pkl eval examples/customize.pkl"
+
 [tasks."skills:restore"]
 description = "Restore local and locked skills; pass -- --help for arguments"
 run = "node scripts/restore-skills.mjs"
