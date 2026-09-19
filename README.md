@@ -3,6 +3,9 @@
 Portable Pkl configuration for coding-agent roles, routing, policies, and
 Codex, OpenCode, Claude Code, and Gemini CLI renderers.
 
+Pkl is pinned in `.mise.toml`. Renderers use Pkl's maintained JSON renderer;
+consumers may convert that structured output to a native harness format.
+
 `defaults.pkl` provides semantic roles. A consumer can amend a renderer and
 replace `profile` with its own `Profile`; roles keep preset names, so changing a
 preset changes every dependent role. Renderers fail through Pkl evaluation if a
