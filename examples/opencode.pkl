@@ -1,0 +1,5 @@
+amends "../renderers/opencode.pkl"
+
+import "../profiles/opencode.pkl" as profileConfig
+
+profile = profileConfig.value

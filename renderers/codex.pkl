@@ -1,0 +1,40 @@
+import "../defaults.pkl" as defaults
+
+profile = defaults.value
+
+local primary = profile.roles["primary"]
+local primaryPreset = profile.models[primary.preset]
+
+local agentConfigs = new Mapping {
+  for (name, role in profile.roles) {
+    [name] = new Mapping {
+      ["name"] = name
+      ["model"] = profile.models[role.preset].codexModel
+      ["model_reasoning_effort"] = profile.models[role.preset].codexEffort
+      ["approval_policy"] = "never"
+      ["sandbox_mode"] = if (role.readOnly) "read-only" else "workspace-write"
+      ["developer_instructions"] = "\(profile.policy.primaryInstructions) \(role.instructions) \(profile.environment.instructions)"
+    }
+  }
+}
+
+output {
+  value = new Mapping {
+    ["config"] = new Mapping {
+      ["model"] = primaryPreset.codexModel
+      ["model_reasoning_effort"] = primaryPreset.codexEffort
+      ["approval_policy"] = profile.policy.approvalPolicy
+      ["sandbox_mode"] = profile.policy.sandboxMode
+      ["developer_instructions"] = "\(profile.policy.primaryInstructions) \(primary.instructions) \(profile.environment.instructions)"
+      ["agents"] = new Mapping {
+        ["enabled"] = true
+        ["default_subagent_model"] = profile.models["medium"].codexModel
+        ["default_subagent_reasoning_effort"] = profile.models["medium"].codexEffort
+      }
+    }
+    ["agents"] = agentConfigs
+    ["routing"] = profile.policy.routing
+    ["skills"] = profile.exposedSkills
+  }
+  renderer = new JsonRenderer {}
+}

@@ -1,0 +1,16 @@
+import "../schema.pkl" as schema
+import "../models.pkl" as modelCatalog
+import "../roles.pkl" as roleCatalog
+import "../policy.pkl" as sharedPolicy
+import "../skills.pkl" as skillCatalog
+
+value = new schema.Profile {
+  name = "opencode"
+  models = modelCatalog.opencode
+  roles = roleCatalog.value
+  policy = sharedPolicy.value
+  environment = new schema.Environment {
+    name = "default"
+  }
+  skillSources = skillCatalog.defaultSources
+}

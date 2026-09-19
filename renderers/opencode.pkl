@@ -1,0 +1,23 @@
+import "../defaults.pkl" as defaults
+
+profile = defaults.value
+
+local primary = profile.roles["primary"]
+
+output {
+  value = new Mapping {
+    ["$schema"] = "https://opencode.ai/config.json"
+    ["model"] = profile.models[primary.preset].model
+    ["agents"] = new Mapping {
+      for (name, role in profile.roles) {
+        [name] = new Mapping {
+          ["model"] = profile.models[role.preset].model
+          ["readonly"] = role.readOnly
+          ["instructions"] = "\(profile.policy.primaryInstructions) \(role.instructions) \(profile.environment.instructions)"
+        }
+      }
+    }
+    ["routing"] = profile.policy.routing
+  }
+  renderer = new JsonRenderer {}
+}

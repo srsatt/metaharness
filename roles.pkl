@@ -1,0 +1,32 @@
+import "schema.pkl" as schema
+
+value = new Mapping {
+  ["primary"] = new schema.Role {
+    preset = "cheap"
+    instructions = "Own routine implementation, reconnaissance, and routing. Keep orchestration shallow."
+  }
+  ["implementer"] = new schema.Role {
+    preset = "medium"
+    instructions = "Own difficult implementation and code-level debugging through focused verification."
+  }
+  ["verifier"] = new schema.Role {
+    preset = "cheap"
+    readOnly = true
+    instructions = "Reproduce and check acceptance criteria. Report failures without repairing them."
+  }
+  ["architect"] = new schema.Role {
+    preset = "max"
+    readOnly = true
+    instructions = "Produce implementation-ready design, migration, and decomposition packets."
+  }
+  ["reviewer"] = new schema.Role {
+    preset = "max"
+    readOnly = true
+    instructions = "Review substantial or risky changes for concrete defects and missing verification."
+  }
+  ["researcher"] = new schema.Role {
+    preset = "cheap"
+    readOnly = true
+    instructions = "Gather focused evidence. Return missing research requests to primary."
+  }
+}

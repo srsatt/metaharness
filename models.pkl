@@ -1,0 +1,43 @@
+import "schema.pkl" as schema
+
+codex = new Mapping {
+  ["cheap"] = new schema.ModelPreset {
+    provider = "openai"
+    model = "gpt-5.6-terra"
+    effort = "medium"
+    codexModel = "gpt-5.6-terra"
+    codexEffort = "medium"
+    nativeModel = "gpt-5.6-terra"
+  }
+  ["medium"] = new schema.ModelPreset {
+    provider = "openai"
+    model = "gpt-5.6-sol"
+    effort = "high"
+    codexModel = "gpt-5.6-sol"
+    codexEffort = "high"
+    nativeModel = "gpt-5.6-sol"
+  }
+  ["max"] = new schema.ModelPreset {
+    provider = "openai"
+    model = "gpt-6-astra"
+    effort = "high"
+    codexModel = "gpt-6-astra"
+    codexEffort = "high"
+    nativeModel = "gpt-6-astra"
+  }
+}
+
+opencode = new Mapping {
+  ["cheap"] = new schema.ModelPreset {
+    provider = "bifrost"
+    model = "bifrost/deepseek-ai/DeepSeek-V4-Flash-0731"
+  }
+  ["medium"] = new schema.ModelPreset {
+    provider = "bifrost"
+    model = "bifrost/MiniMaxAI/MiniMax-M2.7"
+  }
+  ["max"] = new schema.ModelPreset {
+    provider = "bifrost"
+    model = "bifrost/moonshotai/Kimi-K2.6"
+  }
+}

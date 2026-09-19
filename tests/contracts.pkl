@@ -1,0 +1,16 @@
+import "../defaults.pkl" as defaults
+
+local profile = defaults.value
+
+output {
+  value = new Mapping {
+    ["primary"] = profile.roles["primary"].preset == "cheap"
+    ["implementer"] = profile.roles["implementer"].preset == "medium"
+    ["verifier"] = profile.roles["verifier"].preset == "cheap" && profile.roles["verifier"].readOnly
+    ["architect"] = profile.roles["architect"].preset == "max" && profile.roles["architect"].readOnly
+    ["reviewer"] = profile.roles["reviewer"].preset == "max" && profile.roles["reviewer"].readOnly
+    ["codexPresets"] = profile.models["cheap"].codexModel == "gpt-5.6-terra" && profile.models["cheap"].codexEffort == "medium" && profile.models["medium"].codexModel == "gpt-5.6-sol" && profile.models["medium"].codexEffort == "high" && profile.models["max"].codexModel == "gpt-6-astra" && profile.models["max"].codexEffort == "high"
+    ["routing"] = profile.policy.routing["failed_authoritative_check"] == "implementer" && profile.policy.routing["architecture"] == "architect" && profile.policy.routing["migration"] == "architect" && profile.policy.routing["rfc"] == "architect" && profile.policy.routing["difficult_decomposition"] == "architect"
+  }
+  renderer = new JsonRenderer {}
+}

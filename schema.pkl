@@ -1,0 +1,47 @@
+module metaharness.schema
+
+class ModelPreset {
+  provider: String
+  model: String
+  effort: String? = null
+  codexModel: String? = null
+  codexEffort: String? = null
+  nativeModel: String? = null
+}
+
+class Role {
+  preset: String
+  readOnly: Boolean = false
+  instructions: String = ""
+  capabilities: Listing<String> = new {}
+}
+
+class Policy {
+  primaryInstructions: String
+  routing: Mapping<String, String>
+  approvalPolicy: String = "on-request"
+  sandboxMode: String = "workspace-write"
+}
+
+class Environment {
+  name: String
+  instructions: String = ""
+  capabilities: Listing<String> = new {}
+  skillPaths: Mapping<String, String> = new {}
+  settings: Mapping<String, String> = new {}
+}
+
+class SkillSource {
+  lockUri: String
+  installRoot: String
+}
+
+class Profile {
+  name: String
+  models: Mapping<String, ModelPreset>
+  roles: Mapping<String, Role>
+  policy: Policy
+  environment: Environment
+  skillSources: Listing<SkillSource> = new {}
+  exposedSkills: Listing<String> = new {}
+}

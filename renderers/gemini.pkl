@@ -1,0 +1,22 @@
+import "../defaults.pkl" as defaults
+
+profile = defaults.value
+
+output {
+  value = new Mapping {
+    ["settings"] = new Mapping {
+      ["model"] = profile.models[profile.roles["primary"].preset].nativeModel
+      ["tools"] = new Mapping { ["approvalMode"] = "ask" }
+    }
+    ["agents"] = new Mapping {
+      for (name, role in profile.roles) {
+        [name] = new Mapping {
+          ["model"] = profile.models[role.preset].nativeModel
+          ["readOnly"] = role.readOnly
+          ["instructions"] = "Return research requests to primary; Gemini subagents cannot delegate. \(role.instructions)"
+        }
+      }
+    }
+  }
+  renderer = new JsonRenderer {}
+}

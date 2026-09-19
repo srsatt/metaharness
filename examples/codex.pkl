@@ -1,0 +1,3 @@
+amends "../renderers/codex.pkl"
+
+profile = import("../defaults.pkl").value
