@@ -9,11 +9,12 @@ local agentConfigs = new Mapping {
   for (name, role in profile.roles) {
     [name] = new Mapping {
       ["name"] = name
+      ["description"] = "\(role.preset) role. \(role.instructions)"
       ["model"] = profile.models[role.preset].codexModel
       ["model_reasoning_effort"] = profile.models[role.preset].codexEffort
       ["approval_policy"] = "never"
       ["sandbox_mode"] = if (role.readOnly) "read-only" else "workspace-write"
-      ["developer_instructions"] = "\(profile.policy.primaryInstructions) \(role.instructions) \(profile.environment.instructions)"
+      ["developer_instructions"] = "\(profile.policy.primaryInstructions) \(profile.policy.efficiencyInstructions) \(role.instructions) \(profile.environment.instructions)"
     }
   }
 }
@@ -25,7 +26,7 @@ output {
       ["model_reasoning_effort"] = primaryPreset.codexEffort
       ["approval_policy"] = profile.policy.approvalPolicy
       ["sandbox_mode"] = profile.policy.sandboxMode
-      ["developer_instructions"] = "\(profile.policy.primaryInstructions) \(primary.instructions) \(profile.environment.instructions)"
+      ["developer_instructions"] = "\(profile.policy.primaryInstructions) \(profile.policy.efficiencyInstructions) \(primary.instructions) \(profile.environment.instructions)"
       ["agents"] = new Mapping {
         ["enabled"] = true
         ["default_subagent_model"] = profile.models["medium"].codexModel

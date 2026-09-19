@@ -1,2 +1,27 @@
 [tools]
 pkl = "0.32.1"
+node = "22"
+
+[tasks.check]
+description = "Run Pkl contracts and offline skill-source checks"
+run = "node scripts/check.mjs"
+
+[tasks."render:codex"]
+description = "Render default Codex JSON contract"
+run = "pkl eval examples/codex.pkl"
+
+[tasks."render:opencode"]
+description = "Render default OpenCode JSON contract"
+run = "pkl eval examples/opencode.pkl"
+
+[tasks."render:claude"]
+description = "Render default Claude Code JSON contract"
+run = "pkl eval renderers/claude.pkl"
+
+[tasks."render:gemini"]
+description = "Render default Gemini CLI JSON contract"
+run = "pkl eval renderers/gemini.pkl"
+
+[tasks."skills:restore"]
+description = "Restore local and locked skills; pass -- --help for arguments"
+run = "node scripts/restore-skills.mjs"

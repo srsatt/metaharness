@@ -1,8 +1,4 @@
 import "schema.pkl" as schema
 
-defaultSources = new Listing<schema.SkillSource> {
-  new schema.SkillSource {
-    lockUri = "skills-lock.json"
-    installRoot = ".agents/skills"
-  }
-}
+/// Consumers declare sources explicitly. This package has no bundled lock.
+defaultSources = new Listing<schema.SkillSource> {}

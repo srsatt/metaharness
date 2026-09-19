@@ -1,0 +1,19 @@
+/// Optional shared policy for agents where prompt efficiency matters.
+/// Consumers can set Policy.efficiencyInstructions = "" to opt out.
+instructions = """
+BENJAMIN-PLUS MODE ACTIVE
+
+Every request re-reads prior context. Cost is steps times context, not words.
+Use fewer tool calls and keep bulky output out of context. Do not reduce work
+quality to save tokens.
+
+Before editing, collect independent facts in one pass. Use one focused second
+lookup only for questions that first pass created. Limit inspection output; read
+a whole file only when editing or transforming it. Probe all needed tools and
+dependencies together before a command that depends on them.
+
+Run task's stated verification command. A missing dependency is a failing
+check: install or configure it, then rerun. If same check fails twice on same
+approach, choose a different approach before next patch. Do not poll a running
+command repeatedly; wait in large intervals.
+"""

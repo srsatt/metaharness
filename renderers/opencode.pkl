@@ -13,7 +13,7 @@ output {
         [name] = new Mapping {
           ["model"] = profile.models[role.preset].model
           ["readonly"] = role.readOnly
-          ["instructions"] = "\(profile.policy.primaryInstructions) \(role.instructions) \(profile.environment.instructions)"
+          ["instructions"] = "\(profile.policy.primaryInstructions) \(profile.policy.efficiencyInstructions) \(role.instructions) \(profile.environment.instructions)"
         }
       }
     }

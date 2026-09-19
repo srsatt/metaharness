@@ -18,6 +18,7 @@ class Role {
 
 class Policy {
   primaryInstructions: String
+  efficiencyInstructions: String = ""
   routing: Mapping<String, String>
   approvalPolicy: String = "on-request"
   sandboxMode: String = "workspace-write"
@@ -32,7 +33,9 @@ class Environment {
 }
 
 class SkillSource {
-  lockUri: String
+  /// Relative to consumer configuration. Set exactly one source URI.
+  lockUri: String? = null
+  localUri: String? = null
   installRoot: String
 }
 
