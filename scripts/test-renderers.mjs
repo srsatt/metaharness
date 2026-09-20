@@ -40,9 +40,12 @@ function render(module) {
   return JSON.parse(readFileSync(output, "utf8"));
 }
 
-function assertInstructions(value, label) {
+function assertInstructions(value, label, primary) {
   if (typeof value !== "string" || !value.includes("BENJAMIN-PLUS MODE ACTIVE")) fail(`${label}: missing Benjamin-Plus policy`);
   if (value.includes("## UI copy") || value.includes("Workmux is an optional")) fail(`${label}: leaked local prompt policy`);
+  if (!value.includes("Never weaken permissions")) fail(`${label}: missing safety policy`);
+  if (primary && !value.includes("immediately invoke architect")) fail(`${label}: missing primary routing policy`);
+  if (!primary && value.includes("immediately invoke architect")) fail(`${label}: routing policy leaked into specialist`);
 }
 
 function assertRoleNames(agents) {
@@ -57,7 +60,7 @@ try {
   equal(codex.config.agents.default_subagent_reasoning_effort, codexModels.medium[1], "Codex default subagent effort");
   equal(codex.config.approval_policy, "on-request", "Codex approval policy");
   equal(codex.config.sandbox_mode, "workspace-write", "Codex sandbox mode");
-  assertInstructions(codex.config.developer_instructions, "Codex primary instructions");
+  assertInstructions(codex.config.developer_instructions, "Codex primary instructions", true);
   assertRoleNames(codex.agents);
   for (const [name, role] of Object.entries(roles)) {
     const agent = codex.agents[name];
@@ -66,7 +69,7 @@ try {
     equal(agent.sandbox_mode, role.readOnly ? "read-only" : "workspace-write", `Codex ${name} sandbox`);
     equal(agent.approval_policy, "never", `Codex ${name} approval policy`);
     if (typeof agent.description !== "string" || agent.description.length === 0) fail(`Codex ${name}: missing description`);
-    assertInstructions(agent.developer_instructions, `Codex ${name} instructions`);
+    assertInstructions(agent.developer_instructions, `Codex ${name} instructions`, name === "primary");
   }
 
   const opencode = render("renderers/opencode.pkl");
@@ -76,7 +79,7 @@ try {
   for (const [name, role] of Object.entries(roles)) {
     equal(opencode.agents[name].model, opencodeModels[role.tier], `OpenCode ${name} model`);
     equal(opencode.agents[name].readonly, role.readOnly, `OpenCode ${name} read-only`);
-    assertInstructions(opencode.agents[name].instructions, `OpenCode ${name} instructions`);
+    assertInstructions(opencode.agents[name].instructions, `OpenCode ${name} instructions`, name === "primary");
   }
 
   for (const [name, renderer, permission] of [
@@ -86,12 +89,12 @@ try {
     const output = render(renderer);
     equal(output.settings.model, codexModels.cheap[0], `${name} primary model`);
     equal(output.settings[permission[0]][permission[1]], "ask", `${name} approval mode`);
-    assertInstructions(output.settings.instructions, `${name} primary instructions`);
+    assertInstructions(output.settings.instructions, `${name} primary instructions`, true);
     assertRoleNames(output.agents);
     for (const [roleName, role] of Object.entries(roles)) {
       equal(output.agents[roleName].model, codexModels[role.tier][0], `${name} ${roleName} model`);
       equal(output.agents[roleName].readOnly, role.readOnly, `${name} ${roleName} read-only`);
-      assertInstructions(output.agents[roleName].instructions, `${name} ${roleName} instructions`);
+      assertInstructions(output.agents[roleName].instructions, `${name} ${roleName} instructions`, roleName === "primary");
     }
   }
 

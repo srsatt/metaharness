@@ -19,6 +19,7 @@ class Role {
 class Policy {
   primaryInstructions: String
   efficiencyInstructions: String = ""
+  safetyInstructions: String = ""
   routing: Mapping<String, String>
   approvalPolicy: String = "on-request"
   sandboxMode: String = "workspace-write"

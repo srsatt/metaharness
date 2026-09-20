@@ -2,8 +2,9 @@ import "schema.pkl" as schema
 import "benjamin-plus.pkl" as benjaminPlus
 
 value = new schema.Policy {
-  primaryInstructions = "Preserve unrelated changes. Inspect before editing. Use focused checks. Never weaken permissions or silently substitute a model."
+  primaryInstructions = "For a substantial task with an architecture plan or draft, architectural choice, migration, RFC, or difficult decomposition, immediately invoke architect before implementation. Do not invoke architect for routine bounded work."
   efficiencyInstructions = benjaminPlus.instructions
+  safetyInstructions = "Preserve unrelated changes. Inspect before editing. Use focused checks. Never weaken permissions or silently substitute a model."
   routing = new Mapping {
     ["failed_authoritative_check"] = "implementer"
     ["difficult_code_debugging"] = "implementer"
@@ -11,6 +12,7 @@ value = new schema.Policy {
     ["migration"] = "architect"
     ["rfc"] = "architect"
     ["difficult_decomposition"] = "architect"
+    ["substantial_architecture_plan_or_draft"] = "architect"
     ["acceptance_check"] = "verifier"
     ["substantial_or_risky_review"] = "reviewer"
     ["focused_research"] = "researcher"

@@ -7,14 +7,14 @@ output {
     ["settings"] = new Mapping {
       ["model"] = profile.models[profile.roles["primary"].preset].nativeModel
       ["permissions"] = new Mapping { ["defaultMode"] = "ask" }
-      ["instructions"] = "\(profile.policy.primaryInstructions) \(profile.policy.efficiencyInstructions) \(profile.roles["primary"].instructions) \(profile.environment.instructions)"
+      ["instructions"] = "\(profile.policy.primaryInstructions) \(profile.policy.efficiencyInstructions) \(profile.policy.safetyInstructions) \(profile.roles["primary"].instructions) \(profile.environment.instructions)"
     }
     ["agents"] = new Mapping {
       for (name, role in profile.roles) {
         [name] = new Mapping {
           ["model"] = profile.models[role.preset].nativeModel
           ["readOnly"] = role.readOnly
-          ["instructions"] = "\(profile.policy.primaryInstructions) \(profile.policy.efficiencyInstructions) \(role.instructions) \(profile.environment.instructions)"
+          ["instructions"] = "\(if (name == "primary") profile.policy.primaryInstructions else "") \(profile.policy.efficiencyInstructions) \(profile.policy.safetyInstructions) \(role.instructions) \(profile.environment.instructions)"
         }
       }
     }
