@@ -44,7 +44,7 @@ function assertInstructions(value, label, primary) {
   if (typeof value !== "string" || !value.includes("BENJAMIN-PLUS MODE ACTIVE")) fail(`${label}: missing Benjamin-Plus policy`);
   if (value.includes("## UI copy") || value.includes("Workmux is an optional")) fail(`${label}: leaked local prompt policy`);
   if (!value.includes("Never weaken permissions")) fail(`${label}: missing safety policy`);
-  if (primary && !value.includes("immediately invoke architect")) fail(`${label}: missing primary routing policy`);
+  if (primary && (!value.includes("immediately invoke architect before implementation when available") || !value.includes("runtime reports architect unavailable"))) fail(`${label}: missing primary routing fallback`);
   if (!primary && value.includes("immediately invoke architect")) fail(`${label}: routing policy leaked into specialist`);
 }
 

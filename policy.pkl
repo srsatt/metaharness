@@ -2,7 +2,7 @@ import "schema.pkl" as schema
 import "benjamin-plus.pkl" as benjaminPlus
 
 value = new schema.Policy {
-  primaryInstructions = "For a substantial task with an architecture plan or draft, architectural choice, migration, RFC, or difficult decomposition, immediately invoke architect before implementation. Do not invoke architect for routine bounded work."
+  primaryInstructions = "For a substantial task with an architecture plan or draft, architectural choice, migration, RFC, or difficult decomposition, immediately invoke architect before implementation when available. If runtime reports architect unavailable, primary produces the architecture packet before implementation. Do not invoke architect for routine bounded work."
   efficiencyInstructions = benjaminPlus.instructions
   safetyInstructions = "Preserve unrelated changes. Inspect before editing. Use focused checks. Never weaken permissions or silently substitute a model."
   routing = new Mapping {

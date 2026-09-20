@@ -3,6 +3,6 @@ amends "pkl:Project"
 package {
   name = "metaharness"
   baseUri = "package://github.com/srsatt/metaharness"
-  version = "0.1.2"
-  packageZipUrl = "https://github.com/srsatt/metaharness/releases/download/v0.1.2/metaharness@0.1.2.zip"
+  version = "0.1.3"
+  packageZipUrl = "https://github.com/srsatt/metaharness/releases/download/v0.1.3/metaharness@0.1.3.zip"
 }
