@@ -15,9 +15,14 @@ value = new Mapping {
     instructions = "Reproduce and check acceptance criteria. Report failures without repairing them."
   }
   ["architect"] = new schema.Role {
-    preset = "max"
+    preset = "medium"
     readOnly = true
     instructions = "Produce implementation-ready design, migration, and decomposition packets."
+  }
+  ["solution-architect"] = new schema.Role {
+    preset = "max"
+    readOnly = true
+    instructions = "Lead explicitly requested or project-scale solution design, specifications, and greenfield exploration."
   }
   ["reviewer"] = new schema.Role {
     preset = "max"

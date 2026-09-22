@@ -22,9 +22,20 @@ profile = new schema.Profile {
   environment = new schema.Environment {
     name = "local"
     instructions = "Use only this profile's configured integrations."
+    skillPaths = new Mapping {
+      ["example-skill"] = ".agents/skills/example-skill/SKILL.md"
+    }
   }
   skillSources = new {
     new schema.SkillSource { localUri = "skills"; installRoot = ".agents/skills" }
     new schema.SkillSource { lockUri = "skills-lock.json"; installRoot = ".agents/skills" }
+  }
+  exposedSkills = new { "example-skill" }
+  skillExtensions = new {
+    new schema.SkillExtension {
+      skillPath = ".agents/skills/example-skill/SKILL.md"
+      prepend = "Local instructions before the upstream body."
+      append = "Local instructions after the upstream body."
+    }
   }
 }

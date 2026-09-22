@@ -29,7 +29,7 @@ native file format it needs. See [examples/codex.pkl](examples/codex.pkl),
 
 ## Customize precisely
 
-Start from `defaults.pkl`. A profile contains only six public concepts:
+Start from `defaults.pkl`. A profile contains only seven public concepts:
 
 | Concept | Purpose |
 | --- | --- |
@@ -39,6 +39,7 @@ Start from `defaults.pkl`. A profile contains only six public concepts:
 | `Environment` | consumer-specific instructions and capabilities |
 | `Profile` | one complete composition |
 | `SkillSource` | a local skill directory or `skills-lock.json`, plus install root |
+| `SkillExtension` | local text prepended or appended to an installed skill |
 
 Copy this pattern into your config repository and replace only values you own:
 
@@ -71,6 +72,13 @@ profile = new schema.Profile {
   skillSources = new {
     new schema.SkillSource { localUri = "skills"; installRoot = ".agents/skills" }
     new schema.SkillSource { lockUri = "skills-lock.json"; installRoot = ".agents/skills" }
+  }
+  exposedSkills = new { "example-skill" }
+  skillExtensions = new {
+    new schema.SkillExtension {
+      skillPath = ".agents/skills/example-skill/SKILL.md"
+      append = "Use the local report archive for durable output."
+    }
   }
 }
 ```
@@ -115,6 +123,23 @@ Repeated identical lock entries deduplicate. Conflicting entries and duplicate
 local/locked names fail before files change. Locked skills restore in a temp
 directory through `npx skills experimental_install --agent codex --yes`, then
 copy into install root. Existing target skill directories require `--replace`.
+
+The Codex renderer includes `skillSources`, `skills`, and `skillExtensions` in
+its JSON contract. A consumer can install that profile directly:
+
+```sh
+pkl eval path/to/profile.pkl -o profile.json
+mise run skills:restore -- --manifest profile.json --base-dir path/to/consumer --replace
+```
+
+Manifest installation restores only `exposedSkills`. Relative source,
+installation, and extension paths use `--base-dir` (the current directory by
+default); `~/` expands from `HOME`. Extensions preserve YAML frontmatter and
+insert managed text after it (`prepend`), at the end (`append`), or both.
+Reapplying a manifest replaces its prior managed blocks instead of accumulating
+text. Source skills are copied and never modified. An extension target that is
+not installed by a source may point at an existing system skill; a missing
+target fails installation.
 
 Lock and local paths resolve from consumer repository where command runs. Pkl
 `lockUri` and `localUri` likewise resolve relative to consumer configuration. A

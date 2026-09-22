@@ -40,6 +40,13 @@ class SkillSource {
   installRoot: String
 }
 
+class SkillExtension {
+  /// Path to an installed SKILL.md. Relative paths use the consumer base directory.
+  skillPath: String
+  prepend: String = ""
+  append: String = ""
+}
+
 class Profile {
   name: String
   models: Mapping<String, ModelPreset>
@@ -48,4 +55,5 @@ class Profile {
   environment: Environment
   skillSources: Listing<SkillSource> = new {}
   exposedSkills: Listing<String> = new {}
+  skillExtensions: Listing<SkillExtension> = new {}
 }

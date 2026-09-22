@@ -103,6 +103,11 @@ try {
   equal(customized.config.agents.default_subagent_model, "my-model", "customized default subagent model");
   equal(customized.agents.implementer.model, "my-model", "customized implementer model");
   equal(customized.agents.implementer.model_reasoning_effort, "high", "customized implementer effort");
+  equal(customized.skills[0], "example-skill", "customized exposed skill");
+  equal(customized.skillPaths["example-skill"], ".agents/skills/example-skill/SKILL.md", "customized skill path");
+  equal(customized.skillSources.length, 2, "customized skill sources");
+  equal(customized.skillExtensions[0].prepend, "Local instructions before the upstream body.", "customized skill prepend");
+  equal(customized.skillExtensions[0].append, "Local instructions after the upstream body.", "customized skill append");
   console.log("renderer contracts passed");
 } finally {
   rmSync(root, {recursive: true, force: true});

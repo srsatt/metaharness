@@ -36,6 +36,9 @@ output {
     ["agents"] = agentConfigs
     ["routing"] = profile.policy.routing
     ["skills"] = profile.exposedSkills
+    ["skillPaths"] = profile.environment.skillPaths
+    ["skillSources"] = profile.skillSources
+    ["skillExtensions"] = profile.skillExtensions
   }
   renderer = new JsonRenderer {}
 }
