@@ -17,12 +17,12 @@ value = new Mapping {
   ["architect"] = new schema.Role {
     preset = "medium"
     readOnly = true
-    instructions = "Produce implementation-ready design, migration, and decomposition packets."
+    instructions = "Produce implementation-ready design, migration, and decomposition packets. Use this high-effort role for OpenSpec proposals, specs, designs, and task plans; never route OpenSpec planning to a cheap-tier agent."
   }
   ["solution-architect"] = new schema.Role {
     preset = "max"
     readOnly = true
-    instructions = "Lead explicitly requested or project-scale solution design, specifications, and greenfield exploration."
+    instructions = "Lead explicitly requested or project-scale solution design, specifications, and greenfield exploration. Use this max model tier for project-scale or multi-system OpenSpec planning."
   }
   ["reviewer"] = new schema.Role {
     preset = "max"
