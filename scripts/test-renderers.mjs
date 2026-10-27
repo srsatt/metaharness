@@ -9,7 +9,8 @@ const roles = {
   primary: {tier: "cheap", readOnly: false},
   implementer: {tier: "medium", readOnly: false},
   verifier: {tier: "cheap", readOnly: true},
-  architect: {tier: "max", readOnly: true},
+  architect: {tier: "medium", readOnly: true},
+  "solution-architect": {tier: "max", readOnly: true},
   reviewer: {tier: "max", readOnly: true},
   researcher: {tier: "cheap", readOnly: true},
 };
@@ -44,7 +45,7 @@ function assertInstructions(value, label, primary) {
   if (typeof value !== "string" || !value.includes("BENJAMIN-PLUS MODE ACTIVE")) fail(`${label}: missing Benjamin-Plus policy`);
   if (value.includes("## UI copy") || value.includes("Workmux is an optional")) fail(`${label}: leaked local prompt policy`);
   if (!value.includes("Never weaken permissions")) fail(`${label}: missing safety policy`);
-  if (primary && (!value.includes("immediately invoke architect before implementation when available") || !value.includes("runtime reports architect unavailable"))) fail(`${label}: missing primary routing fallback`);
+  if (primary && (!value.includes("immediately invoke architect before implementation when available") || !value.includes("If an invoked architecture role is unavailable, primary produces the required architecture packet before implementation."))) fail(`${label}: missing primary routing fallback`);
   if (!primary && value.includes("immediately invoke architect")) fail(`${label}: routing policy leaked into specialist`);
 }
 
@@ -75,6 +76,7 @@ try {
   const opencode = render("renderers/opencode.pkl");
   equal(opencode.$schema, "https://opencode.ai/config.json", "OpenCode schema");
   equal(opencode.model, opencodeModels.cheap, "OpenCode primary model");
+  equal(opencode.permission.skill["*"], "allow", "OpenCode skill permission");
   assertRoleNames(opencode.agents);
   for (const [name, role] of Object.entries(roles)) {
     equal(opencode.agents[name].model, opencodeModels[role.tier], `OpenCode ${name} model`);
