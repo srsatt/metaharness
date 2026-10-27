@@ -18,6 +18,11 @@ output {
       }
     }
     ["routing"] = profile.policy.routing
+    ["permission"] = new Mapping {
+      ["skill"] = new Mapping {
+        ["*"] = "allow"
+      }
+    }
   }
   renderer = new JsonRenderer {}
 }
