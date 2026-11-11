@@ -51,8 +51,16 @@ class SkillExtension {
   append: String = ""
 }
 
+class ClaudePlugin {
+  name: String
+  marketplace: String
+  /// GitHub owner/repo that hosts the marketplace.
+  repo: String
+}
+
 class Profile {
   name: String
+  claudePlugins: Listing<ClaudePlugin> = new {}
   models: Mapping<String, ModelPreset>
   roles: Mapping<String, Role>
   policy: Policy
