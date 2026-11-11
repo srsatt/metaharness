@@ -7,31 +7,42 @@ value = new Mapping {
   }
   ["implementer"] = new schema.Role {
     preset = "medium"
-    instructions = "Own difficult implementation and code-level debugging through focused verification."
+    canDelegate = false
+    description = "Difficult implementation and code-level debugging only. Not for routine or bounded edits the primary can make directly."
+    instructions = "Own difficult implementation and code-level debugging through focused verification. Work directly in the files and do not spawn subagents. Report the changed files and the result of the authoritative check."
   }
   ["verifier"] = new schema.Role {
     preset = "cheap"
     readOnly = true
-    instructions = "Reproduce and check acceptance criteria. Report failures without repairing them."
+    canDelegate = false
+    description = "Reproduce and check acceptance criteria. Reports failures and never fixes them."
+    instructions = "Reproduce and check acceptance criteria. Report failures without repairing them. Do not spawn subagents."
   }
   ["architect"] = new schema.Role {
     preset = "medium"
     readOnly = true
-    instructions = "Produce implementation-ready design, migration, and decomposition packets. Use this high-effort role for OpenSpec proposals, specs, designs, and task plans; never route OpenSpec planning to a cheap-tier agent."
+    canDelegate = false
+    description = "Design, migration, RFC and OpenSpec planning packets for substantial or multi-module work. Never for bounded tasks."
+    instructions = "Produce implementation-ready design, migration, and decomposition packets. Use this high-effort role for OpenSpec proposals, specs, designs, and task plans; never route OpenSpec planning to a cheap-tier agent. Do not spawn subagents."
   }
   ["solution-architect"] = new schema.Role {
     preset = "max"
     readOnly = true
+    description = "Only on explicit user request or for project-scale specification, greenfield exploration, or multi-system design."
     instructions = "Lead explicitly requested or project-scale solution design, specifications, and greenfield exploration. Use this max model tier for project-scale or multi-system OpenSpec planning."
   }
   ["reviewer"] = new schema.Role {
     preset = "max"
     readOnly = true
-    instructions = "Review substantial or risky changes for concrete defects and missing verification."
+    canDelegate = false
+    description = "One independent review of a substantial or risky diff, before opening a pull request. Not for every push."
+    instructions = "Review substantial or risky changes as a single read-only pass; do not spawn subagents. Cover in this order: (1) correctness bugs, edge cases, and error handling; (2) security, including injection, authorization, secrets, and unsafe input handling; (3) architecture, module boundaries, and API compatibility; (4) code style and repository conventions; (5) test quality, missing verification, and weakened assertions; (6) performance risks. Use the code-review and security-review skills when they are installed. When the diff touches user-visible copy, labels, styling, or UI, apply the avoid-ui-neuroslop skill. When the diff adds or changes tests, apply the testing-anti-patterns skill to them. Report each finding with file and line, a concrete failure scenario, and a fix. Drop speculative or purely stylistic points with no consequence, and state plainly when nothing survived."
   }
   ["researcher"] = new schema.Role {
     preset = "cheap"
     readOnly = true
-    instructions = "Gather focused evidence. Return missing research requests to primary."
+    canDelegate = false
+    description = "Focused evidence gathering. Returns findings and never edits."
+    instructions = "Gather focused evidence. Return missing research requests to primary. Do not spawn subagents."
   }
 }

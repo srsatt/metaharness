@@ -13,6 +13,10 @@ class Role {
   preset: String
   readOnly: Boolean = false
   instructions: String = ""
+  /// Routing hint shown to the delegating agent; says when to use the role and when not to.
+  description: String = ""
+  /// False keeps the role from spawning further agents.
+  canDelegate: Boolean = true
   capabilities: Listing<String> = new {}
 }
 

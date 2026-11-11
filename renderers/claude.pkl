@@ -4,9 +4,11 @@ profile = defaults.value
 
 output {
   value = new Mapping {
+    ["exposedSkills"] = profile.exposedSkills
     ["settings"] = new Mapping {
       ["model"] = profile.models[profile.roles["primary"].preset].nativeModel
       ["permissions"] = new Mapping { ["defaultMode"] = "ask" }
+      ["environmentSettings"] = profile.environment.settings
       ["instructions"] = "\(profile.policy.primaryInstructions) \(profile.policy.efficiencyInstructions) \(profile.policy.safetyInstructions) \(profile.roles["primary"].instructions) \(profile.environment.instructions)"
     }
     ["agents"] = new Mapping {
@@ -14,6 +16,9 @@ output {
         [name] = new Mapping {
           ["model"] = profile.models[role.preset].nativeModel
           ["readOnly"] = role.readOnly
+          ["description"] = role.description
+          ["effort"] = profile.models[role.preset].effort
+          ["canDelegate"] = role.canDelegate
           ["instructions"] = "\(if (name == "primary") profile.policy.primaryInstructions else "") \(profile.policy.efficiencyInstructions) \(profile.policy.safetyInstructions) \(role.instructions) \(profile.environment.instructions)"
         }
       }
